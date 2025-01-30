@@ -1,0 +1,30 @@
+<p>alumnado-dawcomponent works!</p>
+
+@for (alumno of listaAlumnos; track alumno; let index = $index){
+    <div style="background-color: aqua;">
+    <p>Alumno {{index+1}}</p>
+    <li>{{alumno.nombre}}</li>
+    <li>{{alumno.apellidos}}</li>
+    <li>{{alumno.dni}}</li>
+    <li>{{alumno.fecha}}</li>
+    <li>{{alumno.poblacion}}</li>
+    <li>{{alumno.telefono}}</li>
+    <li>{{alumno.curso}}</li>
+    @for (modulo of alumno.modulos; track modulo; let index = $index){
+        <p>Modulo {{index+1}}</p>
+        <li>{{modulo}}</li>       
+    }
+    </div>
+}
+
+<ul>
+        <button (click)="mostrar(1)">Mostrar curso1</button>
+        @if (trabajadorExterno){
+
+        }
+        <button (click)="mostrar(2)">Mostrar curso2</button>
+        @if (trabajadorExterno){
+
+        }    
+</ul>
+

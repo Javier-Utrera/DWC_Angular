@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-component-empleado',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './component-empleado.component.html',
   styleUrl: './component-empleado.component.css'
 })
@@ -23,5 +23,11 @@ export class ComponentEmpleadoComponent {
       new Empleado("Alejandro", 38),
     ];
     this.trabajadorExterno = true;
+  }
+  ngOnInit() {
+    console.log(this.empleadoExt)
+  }
+  cambiarExterno(valor:boolean){
+    this.trabajadorExterno=valor;
   }
 }
