@@ -1,0 +1,29 @@
+<div class="card mb-3 shadow-sm" style="width: 18rem;">
+  
+  <!-- Imagen del libro -->
+  @if (libro?.volumeInfo?.imageLinks?.thumbnail) {
+    <img [src]="libro.volumeInfo.imageLinks.thumbnail" class="card-img-top" alt="Portada del libro">
+  }
+  
+  <div class="card-body">
+    <!-- Título -->
+    <h5 class="card-title">{{ libro?.volumeInfo?.title || 'Título no disponible' }}</h5>
+
+    <!-- Autor(es) -->
+    <p class="card-text">
+      <strong>Autor(es):</strong> {{ libro?.volumeInfo?.authors?.join(', ') || 'Desconocido' }}
+    </p>
+
+    <!-- Fecha de publicación -->
+    <p class="card-text">
+      <strong>Fecha de publicación:</strong> {{ libro?.volumeInfo?.publishedDate || 'No disponible' }}
+    </p>
+
+    <!-- Enlace para ver más detalles -->
+    @if (libro?.volumeInfo?.previewLink) {
+      <a [href]="libro.volumeInfo.previewLink" target="_blank" class="btn btn-primary">
+        Ver más
+      </a>
+    }
+  </div>
+</div>
