@@ -3,18 +3,17 @@
   
   <div class="mb-3">
     <input [(ngModel)]="terminoBusqueda" class="form-control" placeholder="Escribe el título o autor..." />
-    <button (click)="buscarLibros()" class="btn btn-primary mt-2">Buscar</button>
+    <!-- <button (click)="buscarLibros()" class="btn btn-primary mt-2">Buscar</button> -->
   </div>
 
-  @if (libros.length > 0) {
-    <div class="row">
-      @for (libro of libros; track libro.id) {
-        <div class="col-md-4">
-          <app-libro-card [libro]="libro"></app-libro-card>
-        </div>
-      }
-    </div>
-  } @else {
-    <p class="text-center text-muted">No se encontraron libros.</p>
-  }
+  <app-resultados 
+    [terminoBusqueda]="terminoBusqueda" 
+    [maxResults]="6" 
+    [idioma]="''" 
+    [region]="''"
+    [intitle]="''" 
+    [inauthor]="''">
+  </app-resultados>
+
 </div>
+

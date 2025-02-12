@@ -1,0 +1,29 @@
+<div class="container mt-4">
+    <h2>Resultados de la búsqueda 📚</h2>
+  
+    @if (libros.length > 0) {
+      <div class="row">
+        @for (libro of libros; track libro.id) {
+          <div class="col-md-4">
+            <app-libro-card [libro]="libro"></app-libro-card>
+          </div>
+        }
+      </div>
+  
+      <!-- Controles de paginación -->
+      <div class="text-center mt-4">
+        <button class="btn btn-outline-primary" (click)="paginaAnterior()" [disabled]="paginaActual === 0">
+          ⬅️ Anterior
+        </button>
+  
+        <span class="mx-3">Página {{ paginaActual + 1 }}</span>
+  
+        <button class="btn btn-outline-primary" (click)="paginaSiguiente()">
+          Siguiente ➡️
+        </button>
+      </div>
+    } @else {
+      <p class="text-center text-muted">No se encontraron libros.</p>
+    }
+  </div>
+  

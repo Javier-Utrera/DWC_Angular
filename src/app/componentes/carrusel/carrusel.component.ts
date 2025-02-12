@@ -15,10 +15,8 @@ export class CarruselComponent implements OnInit {
   constructor(private servicioLibros: GoogleBooksService) {}
 
   ngOnInit(): void {
-    this.servicioLibros.buscarLibros('Brandon Sanderson','','','Reyes','').subscribe((respuesta) => {
-      
+    this.servicioLibros.buscarLibros('Brandon Sanderson',10,0,'es').subscribe((respuesta) => {  
       console.log(respuesta);
-
       this.imagenes = respuesta.items
         .map((libro: any) => libro.volumeInfo.imageLinks?.thumbnail)
     });
