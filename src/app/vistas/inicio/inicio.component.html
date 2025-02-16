@@ -1,67 +1,96 @@
 <div class="container mt-4">
 
-    <div class="hero mt-5">
-        <div class="hero-content">
-          <h1 class="text-white">📚 Explora el Mundo de los Libros</h1>
-          <p class="text-white">Encuentra y descubre libros con la API de Google Books.</p>
-          <a class="btn btn-warning btn-lg mt-3" routerLink="/libros">🔍 Explorar Libros</a>
-        </div>
+  <div class="hero-container position-relative text-center text-white">
+    <!-- 🔥 Imagen de fondo -->
+    <img src="assets/img/hero.jpg" alt="Hero" class="hero-img">
+  
+    <!-- 🔥 Capa de oscurecimiento -->
+    <div class="hero-overlay"></div>
+  
+    <!-- 🔥 Contenido centrado sobre la imagen -->
+    <div class="hero-content position-absolute top-50 start-50 translate-middle">
+      <h1>📚 Explora el Mundo de los Libros</h1>
+      <p>Encuentra y descubre libros con la API de Google Books.</p>
+      <a class="btn btn-warning btn-lg mt-3" routerLink="/libros">🔍 Explorar Libros</a>
     </div>
-  
-    <!-- Carrusel de libros (ya lo tienes) -->
-    <app-carrusel class="row mt-5"></app-carrusel>
-  
-    <!-- Sección de tarjetas de categorías -->
-    <div class="row mt-5">
-        
-      <div class="col-md-4">
-        <div class="card">
-          <img src="assets/novedades.jpg" class="card-img-top" alt="Novedades">
-          <div class="card-body">
-            <h5 class="card-title">📖 Novedades</h5>
-            <p class="card-text">Descubre los libros más recientes.</p>
-            <a routerLink="/libros" class="btn btn-outline-primary">Ver más</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card">
-          <img src="assets/mejor-valorados.jpg" class="card-img-top" alt="Mejor valorados">
-          <div class="card-body">
-            <h5 class="card-title">⭐ Mejor Valorados</h5>
-            <p class="card-text">Los libros favoritos de los lectores.</p>
-            <a routerLink="/libros" class="btn btn-outline-primary">Ver más</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card">
-          <img src="assets/categorias.jpg" class="card-img-top" alt="Por categoría">
-          <div class="card-body">
-            <h5 class="card-title">🔍 Explora por Categoría</h5>
-            <p class="card-text">Busca libros por género o tema.</p>
-            <a routerLink="/libros" class="btn btn-outline-primary">Ver más</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  
-    <!-- Sección sobre el proyecto -->
-    <div class="container text-center mt-5">
-      <h2>Sobre este proyecto</h2>
-      <p class="text-muted">
-        Esta aplicación te permite explorar y descubrir libros de la API de Google Books.
-        Usa el buscador para encontrar libros por título, autor o categoría.
-      </p>
-    </div>
-  
-    <!-- Pie de página -->
-    <footer class="bg-light text-center py-3 mt-5">
-      <p class="mb-0">📚 Proyecto Angular - API de Google Books © 2025</p>
-    </footer>
-  
   </div>
   
+
+
+
+
+  <app-carrusel class="row mt-5"></app-carrusel>
+
+  <div class="row mt-5">
+
+    <div class="col-md-4">
+      <div class="card">
+        <!-- src="assets/novedades.jpg" -->
+        <img class="card-img-top" alt="Novedades">
+        <div class="card-body">
+          <h5 class="card-title">📖 Novedades</h5>
+          <p class="card-text">Descubre los libros más recientes.</p>
+          <button class="btn btn-primary btn-lg w-100" (click)="buscarNovedades()">📅 Novedades</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <!-- src="assets/mejor-valorados.jpg" -->
+        <img class="card-img-top" alt="Mejor valorados">
+        <div class="card-body">
+          <h5 class="card-title">⭐ Mejor Valorados</h5>
+          <p class="card-text">Los libros favoritos de los lectores.</p>
+          <button class="btn btn-primary btn-lg w-100" (click)="buscarMejorValorados()">⭐ Mejor Valorados</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <!-- src="assets/categorias.jpg"  -->
+        <img class="card-img-top" alt="Por categoría">
+        <div class="card-body">
+          <h5 class="card-title">🔍 Explora por Categoría</h5>
+          <p class="card-text">Busca libros por género o tema.</p>
+          <button class="btn btn-primary btn-lg w-100" (click)="abrirCategorias()">⭐ Mostar Categorias</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  @if (mostrarCategorias) {
+  <div class="mt-4">
+    <h4 class="text-center">Selecciona una categoría</h4>
+    <div class="row">
+      @for (categoria of categorias; track categoria) {
+      <div class="col-md-6">
+        <button class="btn btn-outline-primary w-100 my-1" (click)="seleccionarCategoria(categoria)">
+          {{ categoria }}
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+
+  <div class="mt-5">
+    <app-resultados [terminoBusqueda]="terminoBusqueda" [subject]="categoriaSeleccionada"
+      [categoriaSeleccionada]="categoriaSeleccionada" [orderBy]="orderBy" [maxResults]="maxResults">
+    </app-resultados>
+  </div>
+
+
+  <!-- Sección sobre el proyecto -->
+  <div class="container text-center mt-5">
+    <h2>Sobre este proyecto</h2>
+    <p class="text-muted">
+      Esta aplicación te permite explorar y descubrir libros de la API de Google Books.
+      Usa el buscador para encontrar libros por título, autor o categoría.
+    </p>
+  </div>
+
+</div>

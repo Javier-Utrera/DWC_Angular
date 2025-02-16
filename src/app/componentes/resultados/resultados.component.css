@@ -1,0 +1,27 @@
+.overflow-auto {
+  white-space: nowrap;
+  scroll-behavior: smooth;
+}
+
+.row.flex-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+}
+
+.card {
+  width: 150px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  object-fit: cover;
+  height: 100px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,58 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <img [src]="libro?.volumeInfo?.imageLinks?.thumbnail" class="img-fluid rounded w-75"
+                alt="Portada del libro">
+        </div>
+        <div class="col-md-8">
+            <h2>{{ libro?.volumeInfo?.title || 'Título no disponible' }}</h2>
+            <h5 class="text-muted">{{ libro?.volumeInfo?.subtitle || '' }}</h5>
+            <p><strong>ID:</strong> {{ libro?.id }}</p>
+
+
+            <p>
+                <strong>Autor(es):</strong>
+                @for (autor of libro?.volumeInfo?.authors; track autor) {
+                <button class="btn btn-link p-0" (click)="buscarPorAutor(autor)">
+                    {{ autor }}
+                </button>
+                }
+            </p>
+
+
+            <p><strong>Editorial:</strong> {{ libro?.volumeInfo?.publisher || 'No disponible' }}</p>
+            <p><strong>Fecha de Publicación:</strong> {{ libro?.volumeInfo?.publishedDate || 'No disponible' }}</p>
+            <p><strong>Descripción:</strong> {{ libro?.volumeInfo?.description?.slice(0, 300) || 'Sin descripción' }}...
+            </p>
+            <p><strong>Número de páginas:</strong> {{ libro?.volumeInfo?.pageCount || 'No disponible' }}</p>
+            <p><strong>Categorías:</strong> {{ libro?.volumeInfo?.categories?.join(', ') || 'No disponible' }}</p>
+            <p><strong>Puntuación:</strong> ⭐ {{ libro?.volumeInfo?.averageRating || 'Sin valoraciones' }}</p>
+
+            <button class="btn btn-primary mt-3" (click)="abrirVistaPrevia()">
+                📖 Leer Vista Previa
+            </button>
+
+            <a class="btn btn-outline-secondary mt-3 d-block" [routerLink]="['/libros']">🔙 Volver a la búsqueda</a>
+        </div>
+    </div>
+    <div class="mt-5">
+        <h3>📚 <span > @if (bandera) { Libros del Autor } @else { Libros Relacionados }</span> </h3>
+        
+        <button class="btn btn-outline-primary mb-3" (click)="intercambiar()">
+            @if (bandera) {Mostrar Libros Relacionados } @else {Mostrar Libros del Autor }
+        </button>
+        
+        @if (bandera) {
+            <app-resultados 
+            [terminoBusqueda]="''" 
+            [inauthor]="autorSeleccionado" 
+            [maxResults]="20">
+            </app-resultados>
+        } @else {
+            <app-resultados 
+            [terminoBusqueda]="libro?.volumeInfo?.title"
+            [maxResults]="20">
+            </app-resultados>
+        }
+        </div>      
+</div>

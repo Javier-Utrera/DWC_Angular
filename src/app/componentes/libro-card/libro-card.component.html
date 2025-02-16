@@ -1,29 +1,31 @@
-<div class="card mb-3 shadow-sm" style="width: 18rem;">
-  
-  <!-- Imagen del libro -->
-  @if (libro?.volumeInfo?.imageLinks?.thumbnail) {
-    <img [src]="libro.volumeInfo.imageLinks.thumbnail" class="card-img-top" alt="Portada del libro">
-  }
-  
-  <div class="card-body">
-    <!-- Título -->
-    <h5 class="card-title">{{ libro?.volumeInfo?.title || 'Título no disponible' }}</h5>
+<a [routerLink]="['/libro', libro.id] " [state]="{ libro: libro }" class="text-decoration-none">
+  <div class="card mb-3 shadow-sm mx-auto" style="max-width: 260px;">
+    
+    <!-- 🔥 Contenedor de imagen pequeño y centrado -->
+    <div class="text-center p-2">
+      <img [src]="libro.volumeInfo?.imageLinks?.thumbnail" class="img-fluid rounded"
+           alt="Portada del libro" style="max-height: 200px; object-fit: contain;">
+    </div>
 
-    <!-- Autor(es) -->
-    <p class="card-text">
-      <strong>Autor(es):</strong> {{ libro?.volumeInfo?.authors?.join(', ') || 'Desconocido' }}
-    </p>
+    <div class="card-body d-flex flex-column text-center">
+      <!-- 🔥 Título y autor -->
+      <h5 class="card-title text-truncate">{{ libro?.volumeInfo?.title || 'Título no disponible' }}</h5>
+      <p class="card-text text-muted small mb-1 text-truncate">
+        <strong>Autor:</strong> {{ libro?.volumeInfo?.authors?.join(', ') || 'Desconocido' }}
+      </p>
 
-    <!-- Fecha de publicación -->
-    <p class="card-text">
-      <strong>Fecha de publicación:</strong> {{ libro?.volumeInfo?.publishedDate || 'No disponible' }}
-    </p>
+      <!-- 🔥 Fecha de publicación -->
+      <p class="card-text text-muted small">
+        <strong>Publicado:</strong> {{ libro?.volumeInfo?.publishedDate || 'No disponible' }}
+      </p>
 
-    <!-- Enlace para ver más detalles -->
-    @if (libro?.volumeInfo?.previewLink) {
-      <a [href]="libro.volumeInfo.previewLink" target="_blank" class="btn btn-primary">
-        Ver más
-      </a>
-    }
+      <!-- 🔥 Descripción compacta -->
+      <p class="text-muted small flex-grow-1 text-truncate">
+        {{ libro?.volumeInfo?.description || 'Sin descripción' }}
+      </p>
+
+      <!-- 🔥 Botón de ver más -->
+      <button class="btn btn-sm btn-primary mt-2 w-100">📖 Ver detalles</button>
+    </div>
   </div>
-</div>
+</a>

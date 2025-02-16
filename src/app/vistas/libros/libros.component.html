@@ -1,19 +1,47 @@
-<div class="container mt-4">
-  <h2>Explora libros 📚</h2>
-  
-  <div class="mb-3">
-    <input [(ngModel)]="terminoBusqueda" class="form-control" placeholder="Escribe el título o autor..." />
-    <!-- <button (click)="buscarLibros()" class="btn btn-primary mt-2">Buscar</button> -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">📚 Explora libros</h2>
+
+  <!-- 🔍 Formulario de búsqueda -->
+  <div class="card shadow-sm p-4 mb-4">
+    <div class="row g-3">
+      <!-- 🔹 Input de búsqueda general -->
+      <div class="col-md-4">
+        <label for="busqueda" class="form-label fw-bold">🔍 Buscar libro</label>
+        <input id="busqueda" [(ngModel)]="terminoBusqueda" class="form-control" placeholder="Escribe el título o autor...">
+      </div>
+
+      <!-- 🔹 Input de búsqueda por título -->
+      <div class="col-md-4">
+        <label for="titulo" class="form-label fw-bold">📖 Buscar por título</label>
+        <input id="titulo" [(ngModel)]="intitle" class="form-control" placeholder="Ejemplo: El Hobbit">
+      </div>
+
+      <!-- 🔹 Input de búsqueda por autor -->
+      <div class="col-md-4">
+        <label for="autor" class="form-label fw-bold">✍️ Buscar por autor</label>
+        <input id="autor" [(ngModel)]="inauthor" class="form-control" placeholder="Ejemplo: J.K. Rowling">
+      </div>
+    </div>
   </div>
 
-  <app-resultados 
-    [terminoBusqueda]="terminoBusqueda" 
-    [maxResults]="6" 
-    [idioma]="''" 
-    [region]="''"
-    [intitle]="''" 
-    [inauthor]="''">
-  </app-resultados>
-
+<div class="text-center mb-3">
+  <button class="btn btn-outline-primary me-2" (click)="ordenarPor('titulo')">
+     Ordenar por Título
+  </button>
+  <button class="btn btn-outline-secondary" (click)="ordenarPor('fecha')">
+     Ordenar por Fecha de Publicación
+  </button>
 </div>
 
+  
+
+  <!-- 📌 Resultados -->
+  <app-resultados 
+    [terminoBusqueda]="terminoBusqueda" 
+    [maxResults]="20" 
+    [intitle]="intitle" 
+    [inauthor]="inauthor"
+    [orden]="orden"
+    [ascendente]="ascendente">
+  </app-resultados>
+</div>
