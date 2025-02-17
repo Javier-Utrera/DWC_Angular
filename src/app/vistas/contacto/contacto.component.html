@@ -1,4 +1,82 @@
-<div class="container">
-    <h1>Contacto 📧</h1>
-    <p>¿Tienes dudas? ¡Escríbenos!</p>
-</div>
+<div class="container mt-4">
+    <h2 class="text-center"><i class="bi bi-envelope-fill"></i> Contacto</h2>
+  
+    <form [formGroup]="contactoForm" (ngSubmit)="enviarFormulario()" novalidate class="p-4 border rounded shadow">
+      
+      <!-- Nombre -->
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-person-fill"></i> Nombre completo</label>
+        <input type="text" class="form-control" formControlName="nombre" placeholder="Tu nombre">
+        @if(contactoForm.get('nombre')!.touched && contactoForm.get('nombre')!.hasError('required')){ 
+          <small class="text-danger">El nombre es obligatorio.</small>  
+        }
+        @if(contactoForm.get('nombre')!.hasError('minlength')){ 
+          <small class="text-danger">Debe tener al menos 5 caracteres.</small>  
+        }
+      </div>
+  
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-envelope"></i> Correo Electrónico</label>
+        <input type="email" class="form-control" formControlName="email" placeholder="correo@ejemplo.com">
+        @if(contactoForm.get('email')!.touched && contactoForm.get('email')!.hasError('required')){ 
+          <small class="text-danger">El email es obligatorio.</small>  
+        }
+        @if(contactoForm.get('email')!.hasError('email')){ 
+          <small class="text-danger">Ingresa un correo válido.</small>  
+        }
+      </div>
+  
+      <!-- Asunto -->
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-chat-text"></i> Asunto</label>
+        <input type="text" class="form-control" formControlName="asunto" placeholder="Motivo de contacto">
+        @if(contactoForm.get('asunto')!.touched && contactoForm.get('asunto')!.hasError('required')){ 
+          <small class="text-danger">⚠️ El asunto es obligatorio.</small>  
+        }
+        @if(contactoForm.get('asunto')!.hasError('minlength')){ 
+          <small class="text-danger">Debe tener al menos 5 caracteres.</small>  
+        }
+      </div>
+  
+      <!-- Mensaje -->
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-pencil"></i> Mensaje</label>
+        <textarea class="form-control" formControlName="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea>
+        @if(contactoForm.get('mensaje')!.touched && contactoForm.get('mensaje')!.hasError('required')){ 
+          <small class="text-danger">El mensaje es obligatorio.</small>  
+        }
+        @if(contactoForm.get('mensaje')!.hasError('minlength')){ 
+          <small class="text-danger">El mensaje debe tener al menos 10 caracteres.</small>  
+        }
+        @if(contactoForm.get('mensaje')!.hasError('maxlength')){ 
+          <small class="text-danger">No puede superar los 500 caracteres.</small>  
+        }
+      </div>
+  
+      <!-- Libro Favorito -->
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-book"></i> Libro Favorito</label>
+        <input type="text" class="form-control" formControlName="libroFavorito" placeholder="Escribe el título de tu libro favorito">
+        @if(contactoForm.get('libroFavorito')!.touched && contactoForm.get('libroFavorito')!.hasError('required')){ 
+          <small class="text-danger">Este campo es obligatorio.</small>  
+        }
+        @if(contactoForm.get('libroFavorito')!.hasError('minlength')){ 
+          <small class="text-danger">Debe tener al menos 3 caracteres.</small>  
+        }
+      </div>
+  
+      <!-- Boton de Enviar -->
+      <button type="submit" class="btn btn-primary w-100" [disabled]="contactoForm.invalid">
+        <i class="bi bi-send"></i> Enviar Mensaje
+      </button>
+  
+      <!-- Mensaje de exito -->
+      @if (enviado) {
+        <div class="alert alert-success mt-3 text-center">
+            ¡Correo enviado con éxito! Revisa tu bandeja de entrada.
+        </div>
+      }
+    </form>
+  </div>
+  

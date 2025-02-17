@@ -63,3 +63,10 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+
+google.books.load is not a function	Convertimos VistaPreviaComponent en un componente independiente
+google.books.DefaultViewer is not a constructor	Aseguramos que la API solo se carga una vez y no se recarga en cada cambio de libro
+La API de Google Books solo permite una carga única	Usamos @Input() para actualizar el ID del libro en VistaPreviaComponent en lugar de recargar la API
+Vista previa no se actualiza al navegar desde otro componente	Usamos setTimeout() en libro-detalle.component.ts para asegurar que Angular detecte los cambios
