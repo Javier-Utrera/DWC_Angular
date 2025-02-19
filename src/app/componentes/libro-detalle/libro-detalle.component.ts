@@ -15,7 +15,7 @@ export class LibroDetalleComponent implements OnInit {
   autorSeleccionado: string = '';
   bandera: boolean = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => {

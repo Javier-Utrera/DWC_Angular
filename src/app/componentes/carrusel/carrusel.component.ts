@@ -12,7 +12,7 @@ import { GoogleBooksService } from '../../servicios/google-books.service';
 export class CarruselComponent implements OnInit {
   imagenes: any[] = [];
 
-  constructor(private servicioLibros: GoogleBooksService) {}
+  constructor(public servicioLibros: GoogleBooksService) {}
 
   ngOnInit(): void {
     this.servicioLibros.buscarLibros('',10,0,'relevance','','','','Brandon Sanderson').subscribe((respuesta) => {  

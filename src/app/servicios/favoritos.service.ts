@@ -1,40 +1,53 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, addDoc, deleteDoc, doc, getDocs, query, where } from '@angular/fire/firestore';
-import { Auth, user } from '@angular/fire/auth';
-import { Observable, map, switchMap, of } from 'rxjs';
+import { AuthService } from './auth.service';
+import { firstValueFrom, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavoritosService {
-  private firestore: Firestore = inject(Firestore);
-  private auth: Auth = inject(Auth);
-  private coleccionFavoritos = 'favoritos'; // 🔥 Nombre de la colección en Firestore
+  firestore: Firestore = inject(Firestore);
+  coleccionFavoritos = 'favoritos';
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
-  /** ✅ Obtener los favoritos del usuario autenticado */
+
   obtenerFavoritos(): Observable<any[]> {
-    return user(this.auth).pipe(
-      switchMap((usuario) => {
-        if (!usuario) return of([]); // 🔥 Si no hay usuario, devuelve un array vacío
+    return new Observable((observer) => {
+      this.authService.obtenerUsuario().subscribe((usuario) => {
+        if (!usuario) {
+          observer.next([]);
+          observer.complete();
+          return;
+        }
 
-        const favoritosRef = collection(this.firestore, this.coleccionFavoritos);
-        const q = query(favoritosRef, where('userId', '==', usuario.uid));
-
-        return getDocs(q).then(snapshot => {
-          return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        this.consultarFavoritos(usuario.uid).then((favoritos) => {
+          observer.next(favoritos);
+          observer.complete();
+        }).catch((error) => {
+          console.error("❌ Error obteniendo favoritos:", error);
+          observer.error(error);
         });
-      })
-    );
+      });
+    });
   }
 
-  /** ⭐ Agregar un libro a favoritos */
+
+  async consultarFavoritos(uid: string): Promise<any[]> {
+    const favoritosRef = collection(this.firestore, this.coleccionFavoritos);
+    const q = query(favoritosRef, where('userId', '==', uid));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  }
+
+
   async agregarFavorito(libro: any) {
-    const usuario = this.auth.currentUser;
+    const usuario = await firstValueFrom(this.authService.obtenerUsuario());
     if (!usuario) throw new Error('No hay usuario autenticado.');
   
     const favoritosRef = collection(this.firestore, this.coleccionFavoritos);
+    console.log("📌 Agregando libro a favoritos:", libro);
     return addDoc(favoritosRef, {
       userId: usuario.uid,
       libroId: libro.id,
@@ -43,9 +56,7 @@ export class FavoritosService {
       portada: libro.volumeInfo.imageLinks?.thumbnail || ''
     });
   }
-  
 
-  /** ❌ Eliminar un libro de favoritos */
   async eliminarFavorito(idFavorito: string) {
     const favoritoRef = doc(this.firestore, `${this.coleccionFavoritos}/${idFavorito}`);
     return deleteDoc(favoritoRef);

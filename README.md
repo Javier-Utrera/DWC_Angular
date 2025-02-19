@@ -71,4 +71,13 @@ google.books.DefaultViewer is not a constructor	Aseguramos que la API solo se ca
 La API de Google Books solo permite una carga única	Usamos @Input() para actualizar el ID del libro en VistaPreviaComponent en lugar de recargar la API
 Vista previa no se actualiza al navegar desde otro componente	Usamos setTimeout() en libro-detalle.component.ts para asegurar que Angular detecte los cambios
 
+
+Firestore base de datos online con login de google
+https://www.youtube.com/watch?v=0ihoworuX4o&ab_channel=MonsterlessonsAcademy
 npm install firebase @angular/fire
+Firestore
+https://console.firebase.google.com/
+
+
+npm install @emailjs/browser
+https://dashboard.emailjs.com/admin/templates

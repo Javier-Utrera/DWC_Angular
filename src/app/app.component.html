@@ -28,10 +28,8 @@
         <!-- 🔥 Sección de Login/Logout -->
         <div class="d-flex align-items-center ms-3">
           @if (!usuario) {
-            <!-- 🔑 Botón de inicio de sesión -->
             <button class="btn btn-outline-primary" (click)="iniciarSesion()">Iniciar sesión con Google</button>
           } @else {
-            <!-- 🔥 Usuario logueado: Muestra su imagen y botón de cerrar sesión -->
             <div class="d-flex align-items-center">
               <img [src]="usuario.photoURL" alt="Foto de perfil" class="rounded-circle me-2" width="40" height="40">
               <span class="me-3">{{ usuario.displayName }}</span>

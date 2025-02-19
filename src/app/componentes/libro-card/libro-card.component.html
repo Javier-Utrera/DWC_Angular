@@ -1,4 +1,4 @@
-<a [routerLink]="['/libro', libro.id] " [state]="{ libro: libro }" class="text-decoration-none">
+
   <div class="card mb-3 shadow-sm mx-auto" style="max-width: 260px;">
     
     <!-- 🔥 Contenedor de imagen pequeño y centrado -->
@@ -25,12 +25,11 @@
       </p>
 
       <!-- 🔥 Botón de ver más -->
-      <button class="btn btn-sm btn-primary mt-2 w-100">📖 Ver detalles</button>
+      <a class="btn btn-sm btn-primary mt-2 w-100" [routerLink]="['/libro', libro.id] " [state]="{ libro: libro }">Ver detalles</a>
 
-      <button class="btn" [class.btn-primary]="!esFavorito()" [class.btn-danger]="esFavorito()" (click)="toggleFavorito()">
-        @if (esFavorito()) { ❌ Quitar de Favoritos } @else { ⭐ Agregar a Favoritos }
+      <button class="btn" [class.btn-primary]="!esFavorito()" [class.btn-danger]="esFavorito()" (click)="toggleFavorito()" >
+        @if (esFavorito()) { Quitar de Favoritos } @else { Agregar a Favoritos }
       </button>
       
     </div>
   </div>
-</a>

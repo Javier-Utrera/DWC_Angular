@@ -1,22 +1,26 @@
-<div class="container mt-4">
-  <h2>📚 Mis Libros Favoritos</h2>
-  
-  @if (librosFavoritos().length > 0) {
-    <div class="row">
-      @for (libro of librosFavoritos(); track libro.id) {
-        <div class="col-md-4 mb-3">
-          <div class="card">
-            <img [src]="libro.portada" class="card-img-top" alt="Portada del libro">
-            <div class="card-body">
-              <h5 class="card-title">{{ libro.titulo }}</h5>
-              <p class="card-text">{{ libro.autor }}</p>
-              <button class="btn btn-danger" (click)="eliminarFavorito(libro.id)">❌ Eliminar</button>
+<div class="container py-4">
+  <h2>📚 Mi Biblioteca</h2>
+
+    @if (!usuario) {
+      <p class="alert alert-warning">Debes iniciar sesion para ver tus libros favoritos</p>
+    } @else {
+      @if (favoritos.length === 0) {
+        <p class="alert alert-info">No tienes libros en favoritos</p>
+      } @else {
+        <div class="row">
+          @for (libro of favoritos; track libro.id) {
+            <div class="col-md-3">
+              <div class="card">
+                <img [src]="libro.portada" class="card-img-top" alt="Portada del libro">
+                <div class="card-body">
+                  <h5 class="card-title">{{ libro.titulo }}</h5>
+                  <p class="card-text">Autor: {{ libro.autor }}</p>
+                  <button class="btn btn-danger" (click)="eliminarFavorito(libro.id)">Quitar de favoritos</button>
+                </div>
+              </div>
             </div>
-          </div>
+          }
         </div>
       }
-    </div>
-  } @else {
-    <p class="text-muted">No tienes libros en favoritos.</p>
-  }
+    }
 </div>

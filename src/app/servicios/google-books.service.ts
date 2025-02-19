@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleBooksService {
   private urlBase = 'https://www.googleapis.com/books/v1/volumes';
-
+  private key = "AIzaSyCf8kbjRcJzD0qq-ibztYOsK3bxJes0xMc";
   constructor(private http: HttpClient) {}
 
   /** 📚 Busca libros en Google Books */
@@ -40,7 +39,8 @@ export class GoogleBooksService {
       .set('q', query)
       .set('maxResults', maxResults.toString())
       .set('startIndex', startIndex.toString())
-      .set('printType', 'books');
+      .set('printType', 'books')
+      .set('key', this.key); 
 
     if (idioma) params = params.set('langRestrict', idioma);
     if (region) params = params.set('country', region);

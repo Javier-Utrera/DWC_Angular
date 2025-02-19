@@ -14,7 +14,7 @@ export class LibroCardComponent {
   esFavorito = signal(false);
   idFavorito: string = '';
 
-  constructor(private favoritosService: FavoritosService) {}
+  constructor(public favoritosService: FavoritosService) {}
 
   async ngOnInit() {
     this.favoritosService.obtenerFavoritos().subscribe(favoritos => {
@@ -32,13 +32,9 @@ export class LibroCardComponent {
       await this.favoritosService.eliminarFavorito(this.idFavorito);
       this.esFavorito.set(false);
     } else {
-      try {
         const docRef = await this.favoritosService.agregarFavorito(this.libro);
         this.idFavorito = docRef.id;
         this.esFavorito.set(true);
-      } catch (error) {
-        console.error("❌ Error al agregar libro:", error);
       }
-    }
   }
 }

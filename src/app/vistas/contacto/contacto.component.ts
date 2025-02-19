@@ -9,14 +9,14 @@ import emailjs from 'emailjs-com';
   styleUrl: './contacto.component.css'
 })
 export class ContactoComponent implements OnInit {
-  public contactoForm: FormGroup;
+  contactoForm: FormGroup;
   public enviado: boolean = false;
 
-  private emailJsServiceId = 'service_51sqv6y';
-  private emailJsTemplateId = 'template_5d7hjdm';
-  private emailJsUserId = 'HKDqLYgK-D8FBTkAW';
+  emailJsServiceId = 'service_51sqv6y';
+  emailJsTemplateId = 'template_5d7hjdm';
+  emailJsUserId = 'HKDqLYgK-D8FBTkAW';
 
-  constructor(private fb: FormBuilder) {
+  constructor(public fb: FormBuilder) {
     this.contactoForm = this.fb.group({
       nombre: new FormControl ('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z ]+$')]),
       email: new FormControl ('', [Validators.required, Validators.email]),
@@ -41,7 +41,7 @@ export class ContactoComponent implements OnInit {
       emailjs.send(this.emailJsServiceId, this.emailJsTemplateId, templateParams, this.emailJsUserId)
         .then(() => {
           console.log("Correo enviado correctamente");
-          console.log("📩 Enviando datos:", templateParams);
+          console.log("Enviando datos:", templateParams);
           this.enviado = true;
           this.contactoForm.reset();
         })
@@ -49,7 +49,7 @@ export class ContactoComponent implements OnInit {
           console.error("Error al enviar el correo:", error);
         });
     } else {
-      console.warn("⚠️ El formulario no es válido.");
+      console.warn("El formulario no es válido.");
       this.contactoForm.markAllAsTouched();
     }
   }
