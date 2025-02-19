@@ -1,5 +1,6 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FavoritosService } from '../../servicios/favoritos.service';
 
 @Component({
   selector: 'app-libro-card',
@@ -10,4 +11,34 @@ import { RouterModule } from '@angular/router';
 })
 export class LibroCardComponent {
   @Input() libro: any;
+  esFavorito = signal(false);
+  idFavorito: string = '';
+
+  constructor(private favoritosService: FavoritosService) {}
+
+  async ngOnInit() {
+    this.favoritosService.obtenerFavoritos().subscribe(favoritos => {
+      const favorito = favoritos.find(fav => fav.libroId === this.libro.id);
+      if (favorito) {
+        this.esFavorito.set(true);
+        this.idFavorito = favorito.id;
+      }
+    });
+  }
+
+  async toggleFavorito() {
+    console.log("📚 Intentando agregar libro:", this.libro);
+    if (this.esFavorito()) {
+      await this.favoritosService.eliminarFavorito(this.idFavorito);
+      this.esFavorito.set(false);
+    } else {
+      try {
+        const docRef = await this.favoritosService.agregarFavorito(this.libro);
+        this.idFavorito = docRef.id;
+        this.esFavorito.set(true);
+      } catch (error) {
+        console.error("❌ Error al agregar libro:", error);
+      }
+    }
+  }
 }

@@ -1,10 +1,10 @@
 <div class="container mt-4">
-  <h2 class="text-center">📚 Resultados</h2>
+  <h2 class="text-center">Resultados</h2>
 
-  <!-- Contenedor deslizable único con 2 filas -->
+
   <div class="overflow-auto w-100 p-2 border rounded">
     <div class="d-flex flex-column gap-3">
-      <!-- 🔥 Primera fila -->
+
       <div class="row flex-nowrap g-3">
         @for (libro of primeraFila; track libro.id) {
           <div class="col-md-3 col-sm-6">
@@ -13,7 +13,7 @@
         }
       </div>
 
-      <!-- 🔥 Segunda fila -->
+
       <div class="row flex-nowrap g-3">
         @for (libro of segundaFila; track libro.id) {
           <div class="col-md-3 col-sm-6">

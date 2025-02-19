@@ -27,28 +27,22 @@
                 📖 Leer Vista Previa
             </button>
 
-            <!-- 📖 Vista Previa del Libro con Embedded Viewer -->
-
-            @if (libro?.id) {
-                <app-vista-previa [libroId]="libroId"></app-vista-previa>
-              }
+            <app-vista-previa [libroId]="libroId"></app-vista-previa>
 
             <a class="btn btn-outline-secondary mt-3 d-block" [routerLink]="['/libros']">🔙 Volver a la búsqueda</a>
         </div>
     </div>
     <div class="mt-5">
-        <h3>📚 <span> @if (bandera) { Libros del Autor } @else { Libros Relacionados }</span> </h3>
+        <h3><span> @if (bandera) { Libros del Autor } @else { Libros Relacionados }</span> </h3>
 
         <button class="btn btn-outline-primary mb-3" (click)="intercambiar()">
             @if (bandera) {Mostrar Libros Relacionados } @else {Mostrar Libros del Autor }
         </button>
 
         @if (bandera) {
-        <app-resultados [terminoBusqueda]="''" [inauthor]="autorSeleccionado" [maxResults]="20">
-        </app-resultados>
+        <app-resultados [terminoBusqueda]="''" [inauthor]="autorSeleccionado" [maxResults]="20"></app-resultados>
         } @else {
-        <app-resultados [terminoBusqueda]="libro?.volumeInfo?.title" [maxResults]="20">
-        </app-resultados>
+        <app-resultados [terminoBusqueda]="libro?.volumeInfo?.title" [maxResults]="20"></app-resultados>
         }
     </div>
 </div>

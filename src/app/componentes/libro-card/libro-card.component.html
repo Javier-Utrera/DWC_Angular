@@ -26,6 +26,11 @@
 
       <!-- 🔥 Botón de ver más -->
       <button class="btn btn-sm btn-primary mt-2 w-100">📖 Ver detalles</button>
+
+      <button class="btn" [class.btn-primary]="!esFavorito()" [class.btn-danger]="esFavorito()" (click)="toggleFavorito()">
+        @if (esFavorito()) { ❌ Quitar de Favoritos } @else { ⭐ Agregar a Favoritos }
+      </button>
+      
     </div>
   </div>
 </a>

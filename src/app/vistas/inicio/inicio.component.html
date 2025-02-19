@@ -76,13 +76,18 @@
   </div>
   }
 
-
-  <div class="mt-5">
-    <app-resultados [terminoBusqueda]="terminoBusqueda" [subject]="categoriaSeleccionada"
-      [categoriaSeleccionada]="categoriaSeleccionada" [orderBy]="orderBy" [maxResults]="maxResults">
-    </app-resultados>
-  </div>
-
+  @if (mostrarCategorias){
+    <div class="mt-5">
+      <app-resultados [terminoBusqueda]="terminoBusqueda" [subject]="categoriaSeleccionada"
+        [categoriaSeleccionada]="categoriaSeleccionada" [orderBy]="orderBy" [maxResults]="maxResults">
+      </app-resultados>
+    </div>
+  } @else {
+    <div class="mt-5">
+      <app-resultados [terminoBusqueda]="terminoBusqueda" [orderBy]="orderBy" [maxResults]="maxResults">
+      </app-resultados>
+    </div>    
+  }
 
   <!-- Sección sobre el proyecto -->
   <div class="container text-center mt-5">

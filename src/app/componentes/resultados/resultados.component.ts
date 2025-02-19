@@ -17,11 +17,11 @@ interface Libro {
 
 @Component({
   selector: 'app-resultados',
-  standalone: true,
   imports: [LibroCardComponent],
   templateUrl: './resultados.component.html',
   styleUrls: ['./resultados.component.css']
 })
+
 export class ResultadosComponent implements OnChanges {
   @Input() terminoBusqueda: string = '';
   @Input() orderBy: string = 'relevance';
@@ -52,9 +52,8 @@ export class ResultadosComponent implements OnChanges {
   constructor(private googleBooksService: GoogleBooksService) { }
 
   ngOnChanges() {
-    console.log(`🔄 ngOnChanges detectó un cambio. Nuevo orden: ${this.orden}`);
-
     if (this.orden) {
+      console.log(`🔄 ngOnChanges detectó un cambio. Nuevo orden: ${this.orden}`);
       this.ascendente = !this.ascendente; // 🔄 Alternar orden
       this.ordenarLibros();
     } else {
@@ -88,7 +87,9 @@ export class ResultadosComponent implements OnChanges {
   }
 
   procesarResultados(data: any) {
+    console.log("📚 Libros Antes de comprobar las portadas:" + data.items.length);
     const libros = (data.items || []).filter((libro: Libro) => libro.volumeInfo?.imageLinks?.thumbnail);
+    console.log("📚 Libros Despues de comprobar las portadas:" + libros.length);
     this.totalLibros = data.totalItems || 0;
     this.filtrarPorCategoria(libros);
   }
@@ -98,8 +99,8 @@ export class ResultadosComponent implements OnChanges {
       ? libros.filter((libro: Libro) => libro.volumeInfo.categories?.includes(this.categoriaSeleccionada!))
       : libros;
 
-    console.log("📚 Libros Filtrados:" + this.librosFiltrados.length + this.categoriaSeleccionada);
     if (this.categoriaSeleccionada) {
+      console.log("📚 Libros Filtrados:" + this.librosFiltrados.length + this.categoriaSeleccionada);
       this.librosFiltrados.forEach((libro) => {
         console.log(`📖 ${libro.volumeInfo.title} - Categoría: ${libro.volumeInfo.categories?.join(', ') || 'Sin categoría'}`);
       });
@@ -111,7 +112,7 @@ export class ResultadosComponent implements OnChanges {
   ordenarLibros() {
     if (!this.librosFiltrados.length) return; // Si no hay libros, no hacemos nada
   
-    console.log(`🔄 Intentando ordenar por: ${this.orden} en orden ${this.ascendente ? 'ascendente' : 'descendente'}`);
+    console.log(`Intentando ordenar por: ${this.orden} en orden ${this.ascendente ? 'ascendente' : 'descendente'}`);
   
     if (this.orden === 'titulo') {
       this.librosFiltrados.sort((a, b) => {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class GoogleBooksService {
 
   constructor(private http: HttpClient) {}
 
+  /** 📚 Busca libros en Google Books */
   buscarLibros(
     terminoBusqueda?: string,
     maxResults: number = 20,
@@ -29,7 +31,7 @@ export class GoogleBooksService {
     if (subject?.trim()) queryParts.push(`subject:${subject.trim()}`);
 
     if (queryParts.length === 0) {
-      return throwError(() => new Error(' No se puede hacer la búsqueda sin parámetros válidos.'));
+      return throwError(() => new Error('No se puede hacer la búsqueda sin parámetros válidos.'));
     }
 
     let query = queryParts.join('+');
@@ -38,14 +40,15 @@ export class GoogleBooksService {
       .set('q', query)
       .set('maxResults', maxResults.toString())
       .set('startIndex', startIndex.toString())
-      .set('printType', 'books')
+      .set('printType', 'books');
 
     if (idioma) params = params.set('langRestrict', idioma);
     if (region) params = params.set('country', region);
     if (orderBy) params = params.set('orderBy', orderBy);
 
-    console.log('URL de la API:', `${this.urlBase}?${params.toString()}`);
+    console.log('📚 URL de la API:', `${this.urlBase}?${params.toString()}`);
 
     return this.http.get<any>(this.urlBase, { params });
   }
+
 }

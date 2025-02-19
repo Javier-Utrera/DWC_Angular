@@ -2,24 +2,43 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" routerLink="/">Mi Proyecto</a>
+      <a class="navbar-brand" routerLink="/">📚 Mi Biblioteca</a>
+  
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
+  
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" routerLink="/" routerLinkActive="active">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/libros" routerLinkActive="active">Libros</a>
           </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/biblioteca" routerLinkActive="active">Mi Biblioteca</a>
+            </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/contacto" routerLinkActive="active">Contacto</a>
           </li>
         </ul>
+  
+        <!-- 🔥 Sección de Login/Logout -->
+        <div class="d-flex align-items-center ms-3">
+          @if (!usuario) {
+            <!-- 🔑 Botón de inicio de sesión -->
+            <button class="btn btn-outline-primary" (click)="iniciarSesion()">Iniciar sesión con Google</button>
+          } @else {
+            <!-- 🔥 Usuario logueado: Muestra su imagen y botón de cerrar sesión -->
+            <div class="d-flex align-items-center">
+              <img [src]="usuario.photoURL" alt="Foto de perfil" class="rounded-circle me-2" width="40" height="40">
+              <span class="me-3">{{ usuario.displayName }}</span>
+              <button class="btn btn-outline-danger" (click)="cerrarSesion()">Cerrar sesión</button>
+            </div>
+          }
+        </div>
       </div>
     </div>
   </nav>

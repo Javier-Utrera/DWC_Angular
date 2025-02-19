@@ -9,58 +9,68 @@ declare var google: any;
   styleUrl: './vista-previa.component.css'
 })
 export class VistaPreviaComponent implements OnChanges {
-  @Input() libroId!: string; // 📖 Recibe el ID del libro como parámetro
+  @Input() libroId!: string;
   @ViewChild('viewerCanvas', { static: false }) viewerCanvas!: ElementRef;
 
-  private static apiCargada = false; // 🚀 Evita recargar la API varias veces
+  static apiCargada = false;
+  reintentos = 0;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['libroId'] && this.libroId) {
-      console.log(`📖 Se detectó un cambio de libro. Nuevo ID: ${this.libroId}`);
+      console.log(`📖 Cambio detectado. Cargando vista previa para ID: ${this.libroId}`);
       this.inicializarGoogleBooksAPI();
     }
   }
 
-  private inicializarGoogleBooksAPI() {
-    if (!this.libroId) {
-      console.warn("⚠️ No hay libroId disponible para cargar Google Books API.");
+  //Verifica y carga la API de Google Books
+  inicializarGoogleBooksAPI() {
+    if (typeof google !== 'undefined' && google.books) {
+      console.log("✅ Google Books API ya está cargada.");
+      this.cargarVistaPrevia();
       return;
     }
 
-    console.log("🚀 Intentando cargar Google Books API...");
-
     if (!VistaPreviaComponent.apiCargada) {
-      console.log("📢 Google Books API NO está cargada. Cargando script...");
-      const script = document.createElement('script');
-      script.src = "https://www.google.com/books/jsapi.js";
-      script.onload = () => {
-        VistaPreviaComponent.apiCargada = true;
-        google.books.load('preview');
-        google.books.setOnLoadCallback(() => this.cargarVistaPrevia());
-      };
-      document.head.appendChild(script);
+      this.cargarScriptGoogleBooks();
     } else {
-      console.log("✅ Google Books API ya estaba cargada.");
-      this.cargarVistaPrevia();
+      this.reintentarCargaAPI();
     }
   }
 
-  private cargarVistaPrevia() {
-    if (!this.libroId || !this.viewerCanvas) {
-      console.warn("⚠️ No se puede cargar la vista previa: Falta el ID del libro o el contenedor.");
-      return;
+  //Carga el script de la API si no existe
+  cargarScriptGoogleBooks() {
+    console.log("Cargando API...");
+
+    const script = document.createElement('script');
+    script.src = "https://www.google.com/books/jsapi.js";
+
+    script.onload = () => {
+      VistaPreviaComponent.apiCargada = true;
+      console.log("API cargada correctamente.");
+      this.reintentarCargaAPI();
+    };
+
+    document.head.appendChild(script);
+  }
+
+
+  reintentarCargaAPI() {
+    if (typeof google !== 'undefined' && google.books) {
+      google.books.load('preview');
+      setTimeout(() => this.cargarVistaPrevia(), 500);
     }
+  }
 
-    console.log(`📖 Cargando vista previa para ID: ${this.libroId}`);
+  //Carga la vista previa del libro en el visor
+  cargarVistaPrevia() {
 
-    this.viewerCanvas.nativeElement.innerHTML = ""; // 🔥 Limpiar visor anterior
+    console.log(`Cargando vista ID libro : ${this.libroId}`);
 
-    try {
-      const viewer = new google.books.DefaultViewer(this.viewerCanvas.nativeElement);
-      viewer.load(this.libroId);
-      console.log("✅ Vista previa cargada con éxito.");
-    } catch (error) {
-      console.error("❌ Error al crear el visor de Google Books:", error);
-    }
+    // Limpiar el contenedor
+    this.viewerCanvas.nativeElement.innerHTML = "";
+
+    const viewer = new google.books.DefaultViewer(this.viewerCanvas.nativeElement);
+    viewer.load(this.libroId);
+    console.log("✅ Vista previa cargada con éxito.");
   }
 }

@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <h2>📚 Mis Libros Favoritos</h2>
+  
+  @if (librosFavoritos().length > 0) {
+    <div class="row">
+      @for (libro of librosFavoritos(); track libro.id) {
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img [src]="libro.portada" class="card-img-top" alt="Portada del libro">
+            <div class="card-body">
+              <h5 class="card-title">{{ libro.titulo }}</h5>
+              <p class="card-text">{{ libro.autor }}</p>
+              <button class="btn btn-danger" (click)="eliminarFavorito(libro.id)">❌ Eliminar</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="text-muted">No tienes libros en favoritos.</p>
+  }
+</div>
