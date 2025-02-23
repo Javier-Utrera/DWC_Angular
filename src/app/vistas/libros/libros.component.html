@@ -1,24 +1,22 @@
 <div class="container mt-5">
   <h2 class="text-center mb-4">📚 Explora libros</h2>
 
-  <!-- 🔍 Formulario de búsqueda -->
+
   <div class="card shadow-sm p-4 mb-4">
     <div class="row g-3">
-      <!-- 🔹 Input de búsqueda general -->
+
       <div class="col-md-4">
-        <label for="busqueda" class="form-label fw-bold">🔍 Buscar libro</label>
+        <label for="busqueda" class="form-label fw-bold"> Buscar libro</label>
         <input id="busqueda" [(ngModel)]="terminoBusqueda" class="form-control" placeholder="Escribe el título o autor...">
       </div>
 
-      <!-- 🔹 Input de búsqueda por título -->
       <div class="col-md-4">
-        <label for="titulo" class="form-label fw-bold">📖 Buscar por título</label>
+        <label for="titulo" class="form-label fw-bold">Buscar por título</label>
         <input id="titulo" [(ngModel)]="intitle" class="form-control" placeholder="Ejemplo: El Hobbit">
       </div>
 
-      <!-- 🔹 Input de búsqueda por autor -->
       <div class="col-md-4">
-        <label for="autor" class="form-label fw-bold">✍️ Buscar por autor</label>
+        <label for="autor" class="form-label fw-bold">Buscar por autor</label>
         <input id="autor" [(ngModel)]="inauthor" class="form-control" placeholder="Ejemplo: J.K. Rowling">
       </div>
     </div>
@@ -33,9 +31,6 @@
   </button>
 </div>
 
-  
-
-  <!-- 📌 Resultados -->
   <app-resultados 
     [terminoBusqueda]="terminoBusqueda" 
     [maxResults]="20" 

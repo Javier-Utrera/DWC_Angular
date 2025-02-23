@@ -11,7 +11,7 @@ import { AuthService } from '../../servicios/auth.service';
 export class BibliotecaComponent implements OnInit {
   usuario: any = null;
   favoritos: any[] = [];
-  cargando = true;
+
 
   constructor(public authService: AuthService, public favoritosService: FavoritosService) {}
 
@@ -20,12 +20,9 @@ export class BibliotecaComponent implements OnInit {
       this.usuario = user;
       if (user) {
         this.cargarFavoritos();
-      } else {
-        this.cargando = false;
       }
     });
   }
-
 
   public cargarFavoritos() {
     this.favoritosService.obtenerFavoritos().subscribe(libros => {
@@ -33,11 +30,10 @@ export class BibliotecaComponent implements OnInit {
     });
   }
 
-
   eliminarFavorito(idFavorito: string) {
     this.favoritosService.eliminarFavorito(idFavorito)
       .then(() => {
-        console.log("✅ Libro eliminado de favoritos.");
+        console.log("Libro eliminado de favoritos.");
         this.favoritos = this.favoritos.filter(libro => libro.id !== idFavorito);
       })
       .catch(error => console.error("Error al eliminar favorito:", error));

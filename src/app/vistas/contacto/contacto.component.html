@@ -32,7 +32,7 @@
         <label class="form-label"><i class="bi bi-chat-text"></i> Asunto</label>
         <input type="text" class="form-control" formControlName="asunto" placeholder="Motivo de contacto">
         @if(contactoForm.get('asunto')!.touched && contactoForm.get('asunto')!.hasError('required')){ 
-          <small class="text-danger">⚠️ El asunto es obligatorio.</small>  
+          <small class="text-danger"> El asunto es obligatorio.</small>  
         }
         @if(contactoForm.get('asunto')!.hasError('minlength')){ 
           <small class="text-danger">Debe tener al menos 5 caracteres.</small>  

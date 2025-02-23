@@ -18,6 +18,7 @@ export class CarruselComponent implements OnInit {
     this.servicioLibros.buscarLibros('',10,0,'relevance','','','','Brandon Sanderson').subscribe((respuesta) => {  
       console.log(respuesta);
       this.imagenes = respuesta.items
+      // solo voy a querer las imagenes para el carrusel, por eso los extraigo de todos los libros con map
         .map((libro: any) => libro.volumeInfo.imageLinks?.thumbnail)
     });
   }

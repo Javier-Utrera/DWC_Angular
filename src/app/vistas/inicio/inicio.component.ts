@@ -10,8 +10,8 @@ import { ResultadosComponent } from '../../componentes/resultados/resultados.com
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
-  terminoBusqueda: string = '';        // 🔥 Término de búsqueda dinámico
-  orderBy: string = ''; // 🔥 Orden de los resultados
+  terminoBusqueda: string = '';  
+  orderBy: string = ''; 
   maxResults: number = 20;
 
   mostrarCategorias: boolean = false;
@@ -21,7 +21,7 @@ export class InicioComponent {
   ];
 
   abrirCategorias() {
-    this.mostrarCategorias = !this.mostrarCategorias; // 🔥 Alterna la visibilidad del listado
+    this.mostrarCategorias = !this.mostrarCategorias;
   }
 
   seleccionarCategoria(categoria: string) {

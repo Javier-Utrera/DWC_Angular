@@ -21,15 +21,15 @@
             <p><strong>Descripción:</strong> {{ libro?.volumeInfo?.description?.slice(0, 300) || 'Sin descripción' }}...</p>
             <p><strong>Número de páginas:</strong> {{ libro?.volumeInfo?.pageCount || 'No disponible' }}</p>
             <p><strong>Categorías:</strong> {{ libro?.volumeInfo?.categories?.join(', ') || 'No disponible' }}</p>
-            <p><strong>Puntuación:</strong> ⭐ {{ libro?.volumeInfo?.averageRating || 'Sin valoraciones' }}</p>
+            <p><strong>Puntuación:</strong> {{ libro?.volumeInfo?.averageRating || 'Sin valoraciones' }}</p>
 
             <button class="btn btn-primary mt-3" (click)="abrirVistaPrevia()">
-                📖 Leer Vista Previa
+                Leer Vista Previa
             </button>
 
             <app-vista-previa [libroId]="libroId"></app-vista-previa>
 
-            <a class="btn btn-outline-secondary mt-3 d-block" [routerLink]="['/libros']">🔙 Volver a la búsqueda</a>
+            <a class="btn btn-outline-secondary mt-3 d-block" [routerLink]="['/libros']">Volver a la búsqueda</a>
         </div>
     </div>
     <div class="mt-5">

@@ -18,6 +18,6 @@ export class LibrosComponent {
   ordenarPor(tipo: 'titulo' | 'fecha') {
     this.orden = tipo;
     this.ascendente = !this.ascendente;
-    console.log(`📌 Se cambió el orden a: ${this.orden}` + this.ascendente);
+    console.log(`Se cambió el orden a: ${this.orden}` + this.ascendente);
   }
 }

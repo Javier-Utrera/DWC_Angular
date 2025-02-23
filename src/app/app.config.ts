@@ -16,9 +16,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideHttpClient(),
-
+//aqui inicializo firebase con el export que tengo en environment.ts
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+//aqui lo habilito, osea conecto con firebase
     provideFirestore(() => getFirestore()),
+//y con esto puedo usar el sistema de autenticacion por google que me ofrece firebase
     provideAuth(() => getAuth())
   ]
 };

@@ -1,3 +1,4 @@
+// En este archivo definimos la configuracion que vamos a usar para conectarnos el firebase, como lo vamos a usar fuera de esta archivo ponemos el export
 export const environment = {
     production: false,
     firebaseConfig: {

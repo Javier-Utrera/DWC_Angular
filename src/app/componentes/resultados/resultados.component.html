@@ -24,16 +24,15 @@
     </div>
   </div>
 
-  <!-- Controles de paginación -->
   <div class="text-center mt-4">
     <button class="btn btn-outline-primary me-2" (click)="paginaAnterior()" [disabled]="paginaActual === 0">
-      ⬅️ Anterior
+       Anterior
     </button>
 
     <span>Página {{ paginaActual + 1 }}</span>
 
     <button class="btn btn-outline-primary ms-2" (click)="paginaSiguiente()" [disabled]="librosFiltrados.length === 0">
-      Siguiente ➡️
+      Siguiente 
     </button>
   </div>
 </div>

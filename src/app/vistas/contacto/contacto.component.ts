@@ -11,7 +11,7 @@ import emailjs from 'emailjs-com';
 export class ContactoComponent implements OnInit {
   contactoForm: FormGroup;
   public enviado: boolean = false;
-
+  //Los datos del proveedor de mensajeria que estoy usando emailjs
   emailJsServiceId = 'service_51sqv6y';
   emailJsTemplateId = 'template_5d7hjdm';
   emailJsUserId = 'HKDqLYgK-D8FBTkAW';
